@@ -2,7 +2,7 @@
 import React from "react";
 import { ServiceCard } from "./ServiceCard";
 import {
-  Bank,
+  BuildingBank,
   CircleDollarSign,
   HandCoins,
   LockKeyhole,
@@ -15,7 +15,7 @@ const services = [
   {
     title: "BANK",
     description: "Banco Digital com todos os serviços bancários essenciais, como contas digitais, pagamentos, transferências e muito mais.",
-    icon: <Bank className="h-6 w-6 text-white" />,
+    icon: <BuildingBank className="h-6 w-6 text-white" />,
     link: "/bank",
     color: "bg-primary"
   },

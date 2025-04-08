@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import {
-  Bank,
+  BuildingBank,
   CircleDollarSign,
   Banknote,
   HandCoins,
@@ -18,7 +18,7 @@ import {
 
 const navItems = [
   { name: "Home", path: "/", icon: <Banknote className="w-5 h-5" /> },
-  { name: "Bank", path: "/bank", icon: <Bank className="w-5 h-5" /> },
+  { name: "Bank", path: "/bank", icon: <BuildingBank className="w-5 h-5" /> },
   { name: "Exchange", path: "/exchange", icon: <CircleDollarSign className="w-5 h-5" /> },
   { name: "Stock", path: "/stock", icon: <HandCoins className="w-5 h-5" /> },
   { name: "Escrow", path: "/escrow", icon: <LockKeyhole className="w-5 h-5" /> },
