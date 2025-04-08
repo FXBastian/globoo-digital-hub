@@ -1,15 +1,16 @@
+
 import React from "react";
 import { Layout } from "@/components/Layout";
 import { PageHeader } from "@/components/PageHeader";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { BuildingBank, CreditCard, BanknoteIcon, ArrowRightLeft, PiggyBank, BarChart } from "lucide-react";
+import { Building, CreditCard, BanknoteIcon, ArrowRightLeft, PiggyBank, BarChart } from "lucide-react";
 
 const GlobooBankPage = () => {
   const features = [
     {
       title: "Contas Digitais",
       description: "Abertura simplificada de contas 100% digitais, sem burocracia e sem taxas de manutenção.",
-      icon: <BuildingBank className="h-5 w-5" />
+      icon: <Building className="h-5 w-5" />
     },
     {
       title: "Pagamentos",
@@ -43,7 +44,7 @@ const GlobooBankPage = () => {
       <PageHeader
         title="BANK"
         description="Ambiente de Banco Digital com todos os serviços bancários essenciais, oferecendo uma experiência bancária completa, 100% online e integrada com outras soluções da plataforma."
-        icon={<BuildingBank className="h-8 w-8 text-white" />}
+        icon={<Building className="h-8 w-8 text-white" />}
       />
 
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
