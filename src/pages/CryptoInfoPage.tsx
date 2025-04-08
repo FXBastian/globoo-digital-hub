@@ -1,16 +1,18 @@
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Layout } from "@/components/Layout";
 import { PageHeader } from "@/components/PageHeader";
-import { CircleDollarSign, Search } from "lucide-react";
+import { CircleDollarSign, Search, X } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { CryptoCard } from "@/components/CryptoCard";
 import { cryptoData } from "@/data/cryptoData";
+import { Button } from "@/components/ui/button";
 
 const CryptoInfoPage = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [currentTab, setCurrentTab] = useState("all");
+  const [displayLimit, setDisplayLimit] = useState(9);
 
   const filteredCryptos = cryptoData.filter(
     (crypto) =>
@@ -28,6 +30,22 @@ const CryptoInfoPage = () => {
     layer2: filteredCryptos.filter((crypto) => crypto.category.includes("layer2")),
   };
 
+  const clearSearch = () => {
+    setSearchTerm("");
+  };
+
+  const loadMore = () => {
+    setDisplayLimit(prev => prev + 9);
+  };
+
+  // Reset display limit when changing tabs or search
+  useEffect(() => {
+    setDisplayLimit(9);
+  }, [currentTab, searchTerm]);
+
+  const currentCryptos = categorizedCryptos[currentTab as keyof typeof categorizedCryptos].slice(0, displayLimit);
+  const hasMore = currentCryptos.length < categorizedCryptos[currentTab as keyof typeof categorizedCryptos].length;
+
   return (
     <Layout>
       <PageHeader
@@ -41,10 +59,19 @@ const CryptoInfoPage = () => {
         <Search className="absolute left-3 top-3 h-5 w-5 text-muted-foreground" />
         <Input
           placeholder="Buscar criptomoeda..."
-          className="pl-10"
+          className="pl-10 pr-10"
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
         />
+        {searchTerm && (
+          <button 
+            onClick={clearSearch}
+            className="absolute right-3 top-3"
+            aria-label="Clear search"
+          >
+            <X className="h-5 w-5 text-muted-foreground" />
+          </button>
+        )}
       </div>
 
       <Tabs defaultValue="all" className="w-full" onValueChange={setCurrentTab}>
@@ -62,21 +89,30 @@ const CryptoInfoPage = () => {
 
         {Object.entries(categorizedCryptos).map(([category, cryptos]) => (
           <TabsContent key={category} value={category} className="mt-0">
-            {cryptos.length > 0 ? (
-              <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-                {cryptos.map((crypto) => (
-                  <CryptoCard
-                    key={crypto.id}
-                    name={crypto.name}
-                    symbol={crypto.symbol}
-                    description={crypto.description}
-                    security={crypto.security}
-                    backed={crypto.backed}
-                    imageUrl={crypto.imageUrl}
-                    color={crypto.color}
-                  />
-                ))}
-              </div>
+            {currentCryptos.length > 0 ? (
+              <>
+                <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+                  {currentCryptos.map((crypto) => (
+                    <CryptoCard
+                      key={crypto.id}
+                      name={crypto.name}
+                      symbol={crypto.symbol}
+                      description={crypto.description}
+                      security={crypto.security}
+                      backed={crypto.backed}
+                      imageUrl={crypto.imageUrl}
+                      color={crypto.color}
+                    />
+                  ))}
+                </div>
+                {hasMore && (
+                  <div className="flex justify-center mt-8">
+                    <Button onClick={loadMore} variant="outline">
+                      Carregar Mais
+                    </Button>
+                  </div>
+                )}
+              </>
             ) : (
               <div className="text-center py-12">
                 <h3 className="text-lg font-medium">Nenhuma criptomoeda encontrada</h3>
