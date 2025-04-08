@@ -14,6 +14,7 @@ import {
   BookOpen,
   Menu,
   X,
+  Bitcoin,
 } from "lucide-react";
 
 const navItems = [
@@ -25,6 +26,7 @@ const navItems = [
   { name: "Tokenizer", path: "/tokenizer", icon: <FileImage className="w-5 h-5" /> },
   { name: "Crowdfunding", path: "/crowdfunding", icon: <Rocket className="w-5 h-5" /> },
   { name: "Community", path: "/community", icon: <Users className="w-5 h-5" /> },
+  { name: "Criptomoedas", path: "/crypto-info", icon: <Bitcoin className="w-5 h-5" /> },
   { name: "Concepts", path: "/concepts", icon: <BookOpen className="w-5 h-5" /> },
 ];
 

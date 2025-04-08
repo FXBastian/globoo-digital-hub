@@ -14,6 +14,7 @@ import GlobooTokenizerPage from "./pages/GlobooTokenizerPage";
 import GlobooCrowdfundingPage from "./pages/GlobooCrowdfundingPage";
 import GlobooCommunityPage from "./pages/GlobooCommunityPage";
 import GlobooConceptsPage from "./pages/GlobooConceptsPage";
+import CryptoInfoPage from "./pages/CryptoInfoPage";
 
 const queryClient = new QueryClient();
 
@@ -33,6 +34,7 @@ const App = () => (
           <Route path="/crowdfunding" element={<GlobooCrowdfundingPage />} />
           <Route path="/community" element={<GlobooCommunityPage />} />
           <Route path="/concepts" element={<GlobooConceptsPage />} />
+          <Route path="/crypto-info" element={<CryptoInfoPage />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
