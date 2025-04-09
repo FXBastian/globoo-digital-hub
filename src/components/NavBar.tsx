@@ -16,15 +16,8 @@ import {
   X,
   Bitcoin,
   ChevronDown,
+  BookType,
 } from "lucide-react";
-import {
-  NavigationMenu,
-  NavigationMenuContent,
-  NavigationMenuItem,
-  NavigationMenuLink,
-  NavigationMenuList,
-  NavigationMenuTrigger,
-} from "@/components/ui/navigation-menu";
 import {
   DropdownMenu,
   DropdownMenuTrigger,
@@ -32,11 +25,21 @@ import {
   DropdownMenuItem,
 } from "@/components/ui/dropdown-menu";
 
-// Reorganized nav items with grouping logic
+// Reorganized nav items with improved grouping
 const navItems = [
   { name: "Home", path: "/", icon: <Banknote className="w-5 h-5" /> },
-  { name: "Bank", path: "/bank", icon: <Building className="w-5 h-5" /> },
-  // Trading group will contain Exchange and Crypto
+  
+  // Financial Services Group
+  {
+    name: "Financeiro",
+    icon: <Building className="w-5 h-5" />,
+    subItems: [
+      { name: "Bank", path: "/bank", icon: <Building className="w-5 h-5" /> },
+      { name: "Stock", path: "/stock", icon: <HandCoins className="w-5 h-5" /> },
+    ]
+  },
+  
+  // Trading group
   {
     name: "Trading",
     icon: <CircleDollarSign className="w-5 h-5" />,
@@ -45,11 +48,27 @@ const navItems = [
       { name: "Criptomoedas", path: "/crypto-info", icon: <Bitcoin className="w-5 h-5" /> },
     ]
   },
-  { name: "Stock", path: "/stock", icon: <HandCoins className="w-5 h-5" /> },
-  { name: "Escrow", path: "/escrow", icon: <LockKeyhole className="w-5 h-5" /> },
-  { name: "Tokenizer", path: "/tokenizer", icon: <FileImage className="w-5 h-5" /> },
-  { name: "Crowdfunding", path: "/crowdfunding", icon: <Rocket className="w-5 h-5" /> },
-  { name: "Community", path: "/community", icon: <Users className="w-5 h-5" /> },
+  
+  // Digital Assets Group
+  {
+    name: "Ativos Digitais",
+    icon: <FileImage className="w-5 h-5" />,
+    subItems: [
+      { name: "Tokenizer", path: "/tokenizer", icon: <FileImage className="w-5 h-5" /> },
+      { name: "Escrow", path: "/escrow", icon: <LockKeyhole className="w-5 h-5" /> },
+    ]
+  },
+  
+  // Community and Learning Group
+  {
+    name: "Comunidade",
+    icon: <Users className="w-5 h-5" />,
+    subItems: [
+      { name: "Community", path: "/community", icon: <Users className="w-5 h-5" /> },
+      { name: "Crowdfunding", path: "/crowdfunding", icon: <Rocket className="w-5 h-5" /> },
+    ]
+  },
+  
   { name: "Concepts", path: "/concepts", icon: <BookOpen className="w-5 h-5" /> },
 ];
 
@@ -72,25 +91,25 @@ export const NavBar = () => {
                 </span>
               </Link>
             </div>
-            <nav className="hidden md:ml-6 md:flex md:space-x-2">
+            <nav className="hidden md:ml-6 md:flex md:space-x-3">
               {navItems.map((item) => {
                 // If the item has subitems, render a dropdown
                 if (item.subItems) {
                   return (
                     <DropdownMenu key={item.name}>
                       <DropdownMenuTrigger asChild>
-                        <button className="inline-flex items-center px-2 py-1 text-sm font-medium rounded-md text-gray-600 hover:text-gray-900 hover:bg-gray-100 dark:text-gray-300 dark:hover:text-white dark:hover:bg-gray-800 transition-colors duration-150 ease-in-out">
+                        <button className="inline-flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-600 hover:text-gray-900 hover:bg-gray-100 dark:text-gray-300 dark:hover:text-white dark:hover:bg-gray-800 transition-colors duration-150 ease-in-out">
                           {item.icon}
-                          <span className="ml-1">{item.name}</span>
+                          <span className="ml-2">{item.name}</span>
                           <ChevronDown className="ml-1 h-4 w-4" />
                         </button>
                       </DropdownMenuTrigger>
-                      <DropdownMenuContent align="start" className="bg-background border shadow-md">
+                      <DropdownMenuContent align="start" className="bg-background border shadow-md rounded-md">
                         {item.subItems.map((subItem) => (
                           <DropdownMenuItem key={subItem.name} asChild>
                             <Link
                               to={subItem.path}
-                              className={`flex items-center px-3 py-2 text-sm ${
+                              className={`flex items-center px-4 py-2 text-sm rounded-sm ${
                                 location.pathname === subItem.path
                                   ? "text-primary bg-primary/10"
                                   : "text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800"
@@ -111,14 +130,14 @@ export const NavBar = () => {
                   <Link
                     key={item.name}
                     to={item.path}
-                    className={`inline-flex items-center px-2 py-1 text-sm font-medium rounded-md ${
+                    className={`inline-flex items-center px-3 py-2 text-sm font-medium rounded-md ${
                       location.pathname === item.path
                         ? "text-primary bg-primary/10"
                         : "text-gray-600 hover:text-gray-900 hover:bg-gray-100 dark:text-gray-300 dark:hover:text-white dark:hover:bg-gray-800"
                     } transition-colors duration-150 ease-in-out`}
                   >
                     {item.icon}
-                    <span className="ml-1">{item.name}</span>
+                    <span className="ml-2">{item.name}</span>
                   </Link>
                 );
               })}
@@ -158,12 +177,12 @@ export const NavBar = () => {
               // Dropdown for mobile
               if (item.subItems) {
                 return (
-                  <div key={item.name} className="space-y-1">
-                    <div className="flex items-center py-2 px-3 text-base font-medium rounded-md text-gray-600 dark:text-gray-300">
+                  <div key={item.name} className="space-y-1 mb-2">
+                    <div className="flex items-center py-2 px-3 text-base font-medium rounded-md text-gray-800 dark:text-gray-200 bg-gray-100 dark:bg-gray-800">
                       {item.icon}
                       <span className="ml-3">{item.name}</span>
                     </div>
-                    <div className="pl-4">
+                    <div className="pl-4 space-y-1 border-l-2 border-gray-200 dark:border-gray-700 ml-3">
                       {item.subItems.map((subItem) => (
                         <Link
                           key={subItem.name}
