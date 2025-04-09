@@ -150,6 +150,15 @@ const CryptoInfoPage = () => {
                       backed={crypto.backed}
                       imageUrl={crypto.imageUrl}
                       color={crypto.color}
+                      type={crypto.type}
+                      purpose={crypto.purpose}
+                      techSpecs={crypto.techSpecs}
+                      network={crypto.network}
+                      useCases={crypto.useCases}
+                      exchanges={crypto.exchanges}
+                      tokenomics={crypto.tokenomics}
+                      relevance={crypto.relevance}
+                      funFacts={crypto.funFacts}
                     />
                   ))}
                 </div>
