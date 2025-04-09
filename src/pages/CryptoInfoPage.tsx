@@ -9,6 +9,7 @@ import { CryptoCard } from "@/components/CryptoCard";
 import { cryptoData } from "@/data/cryptoData";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
+import { Card, CardHeader, CardContent } from "@/components/ui/card";
 
 const CryptoInfoPage = () => {
   const [searchTerm, setSearchTerm] = useState("");
